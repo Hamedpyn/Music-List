@@ -1,15 +1,18 @@
-﻿const image = document.querySelector("#cover");
-const title = document.getElementById("title");
-const artist = document.getElementById("artist");
-const music = document.querySelector("audio");
-const currentTimeEl = document.getElementById("current-time");
-const durationEl = document.getElementById("duration");
-const progress = document.getElementById("progress");
-const progressContainer = document.getElementById("progress-container");
-const prevBtn = document.getElementById("prev");
-const playBtn = document.getElementById("play");
-const nextBtn = document.getElementById("next");
-const background = document.getElementById("background");
+﻿// Select DOM Elements
+
+let
+  image = document.querySelector("#cover"),
+  title = document.getElementById("title"),
+  artist = document.getElementById("artist"),
+  music = document.querySelector("audio"),
+  currentTimeEl = document.getElementById("current-time"),
+  durationEl = document.getElementById("duration"),
+  progress = document.getElementById("progress"),
+  progressContainer = document.getElementById("progress-container"),
+  prevBtn = document.getElementById("prev"),
+  playBtn = document.getElementById("play"),
+  nextBtn = document.getElementById("next"),
+  background = document.getElementById("background");
 
 // Music
 const songs = [
@@ -22,7 +25,7 @@ const songs = [
   { path: "media/07 Az Ashnayitoon Khoshhalam.mp3", displayName: "Az Ashnayitoon Khoshhalam", artist: "Hichkas", cover: "images/Hichkas.jpg" },
   { path: "media/08 Khalafkaraye Asli.mp3", displayName: "Khalafkaraye Asli", artist: "Hichkas", cover: "images/Hichkas.jpg" },
   { path: "media/09 Shabi Gorga (feat. Quf).mp3", displayName: "Shabi Gorga", artist: "Hichkas (feat. Quf)", cover: "images/Hichkas.jpg" },
-  { path: "media/010 Teroreshon Kon.mp3", displayName: "Teroreshon Kon", artist: "Hichkas", cover: "images/Hichkas.jpg" },
+  { path: "media/10 Teroreshoon Kon.mp3", displayName: "Teroreshon Kon", artist: "Hichkas", cover: "images/Hichkas.jpg" },
   { path: "media/11 Jadval O roya.mp3", displayName: "Jadval O roya", artist: "Hichkas", cover: "images/Hichkas.jpg" },
 ]
 
@@ -77,7 +80,7 @@ let songIndex = 0;
 // Previous Song
 function prevSong() {
   songIndex--;
-  if (songIndex === 0) {
+  if (songIndex < 0) {
     songIndex = songs.length - 1;
   }
   loadSong(songs[songIndex]);
@@ -139,12 +142,18 @@ nextBtn.addEventListener("click", nextSong);
 music.addEventListener("ended", nextSong);
 music.addEventListener("timeupdate", updateProgressBar);
 progressContainer.addEventListener("click", setProgressBar);
-document.addEventListener('keypress', (e) => {
-  if (e.key = 'Enter') {
+
+// key down event
+document.addEventListener('keydown', e => {
+  if (e.key == 'Enter') {
     if (isPlaying) {
       pauseSong()
     } else {
       playSong()
     }
+  } else if (e.key == 'ArrowRight') {
+    nextSong()
+  } else if (e.key == 'ArrowLeft') {
+    prevSong()
   }
 })
