@@ -139,3 +139,12 @@ nextBtn.addEventListener("click", nextSong);
 music.addEventListener("ended", nextSong);
 music.addEventListener("timeupdate", updateProgressBar);
 progressContainer.addEventListener("click", setProgressBar);
+document.addEventListener('keypress', (e) => {
+  if (e.key = 'Enter') {
+    if (isPlaying) {
+      pauseSong()
+    } else {
+      playSong()
+    }
+  }
+})
